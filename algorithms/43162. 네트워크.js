@@ -1,12 +1,16 @@
-let isVisited = {};
-let _n;
-let _computers;
-
 function solution(n, computers) {
-  var answer = 0;
-  _n = n;
-  _computers = computers;
+  let isVisited = {};
 
+  const DFS = (vertex) => {
+    isVisited[vertex] = true;
+    for (let i = 0; i < n; ++i) {
+      if (computers[vertex][i] === 1 && !isVisited[i]) {
+        DFS(i);
+      }
+    }
+  };
+
+  var answer = 0;
   for (let i = 0; i < n; ++i) {
     if (!isVisited[i]) {
       ++answer;
@@ -15,12 +19,3 @@ function solution(n, computers) {
   }
   return answer;
 }
-
-const DFS = (loc) => {
-  isVisited[loc] = true;
-  for (let i = 0; i < _n; ++i) {
-    if (_computers[loc][i] === 1 && !isVisited[i]) {
-      DFS(i);
-    }
-  }
-};
